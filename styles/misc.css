@@ -1,0 +1,42 @@
+::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+  *,
+  *:after,
+  *:before {
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  .menu {
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 2px;
+    padding: 5px 0 5px 0;
+    width: 150px;
+    height: auto;
+    margin: 0;
+    position: absolute;
+    list-style: none;
+    box-shadow: 0 0 20px 0 #ccc;
+    z-index: 10;
+  }
+  
+  .menu__item {
+    padding: 0.5em 1em;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu__item:hover {
+    background-color: #9e8e8e;
+    border-left: 4px solid #ccc;
+  }
+  
+  .divider {
+    border-bottom: 1px solid rgb(0, 0, 0);
+    margin: 10px 0;
+  }
