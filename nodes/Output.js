@@ -1,15 +1,45 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 
-import { Handle } from 'reactflow';
+import { Handle } from "reactflow";
 import { useRecoilState } from "recoil";
-import { Output } from "../atoms/outputAtom";
+import { dataStore } from "../atoms/dataAtom";
+import { useNodes } from "reactflow";
 
 export default memo(({ data, isConnectable }) => {
+  const [op] = useRecoilState(dataStore);
+  const nodes = useNodes();
 
-  const [op] = useRecoilState(Output);
+  useEffect(() => {
+    data.type = "output";
+    data.data = [];
+    console.log(data.type);
+  }, [isConnectable]);
+
+  useEffect(() => {
+    // res = op.filter();
+    let res = op.map((res) => {
+      return nodes
+        .filter((node) => node["data"]["label"] !== res["label"])
+        .map((output) => {
+          return output;
+        });
+    });
+
+    data.value = op.map((res) => {
+      return res["label"] == data.label ? res["value"][0] : null;
+    });
+
+    let newnodes = res.concat(op);
+    console.log("hehe", data.value);
+  }, [op]);
 
   return (
-    <div className="bg-blue-400 p-2 rounded text-white tracking-wide">
+    <div
+      className=" p-2 rounded text-white tracking-widest"
+      style={{
+        background: "#fd7f79",
+      }}
+    >
       <Handle
         type="target"
         position="left"
@@ -17,7 +47,7 @@ export default memo(({ data, isConnectable }) => {
           background: "white",
           width: 10,
           height: 10,
-          //   borderColor: "orange",
+          // borderColor: "orange",
           borderRadius: "5px 5px 5px 0px",
           transform: "rotate(45deg)",
           top: 16,
@@ -27,28 +57,26 @@ export default memo(({ data, isConnectable }) => {
       />
       <div
         style={{
-          width: 'auto',
+          width: "auto",
           color: "white",
-          display: 'flex',
-          alignItems: 'center'
+          display: "flex",
+          alignItems: "center",
         }}
       >
-        <span>
-        Output:
-        </span>
+        <span>Output:</span>
         <span
           style={{
             background: "white",
-            width: 'auto',
+            width: "auto",
             padding: 5,
             color: "black",
             marginLeft: 2,
             textAlign: "center",
             borderRadius: 10,
-            flexGrow: 'true'
+            flexGrow: "true",
           }}
         >
-          {op}
+          {data.value}
         </span>
       </div>
     </div>

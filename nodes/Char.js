@@ -1,12 +1,24 @@
 import React, { memo, useState } from "react";
 
-import { Handle } from 'reactflow';
+import { Handle } from "reactflow";
 
 export default memo(({ data, isConnectable }) => {
-  const [num, setnum] = useState(0);
+  const [char, setChar] = useState("");
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    setChar(event.target.value);
+    data.value = event.target.value;
+    data.type = "value";
+  };
 
   return (
-    <div className="bg-blue-500 p-2 w-20 h-20 rounded text-white tracking-wider">
+    <div
+      className="bg-blue-500 p-2 h-20 rounded text-white tracking-wider"
+      style={{
+        width: "100px",
+      }}
+    >
       <Handle
         type="target"
         position="left"
@@ -22,12 +34,18 @@ export default memo(({ data, isConnectable }) => {
         onConnect={(event) => console.log("handle onConnect", event)}
         isConnectable={isConnectable}
       />
-      <div className="text-center">Char</div>
+      <div className="flex justify-center" style={{ width: "100%" }}>
+        <span>Char</span>
+      </div>
       <input
-        className="w-10 text-black pt-2 rounded text-center"
+        className="text-black px-2 rounded text-center"
+        style={{
+          color: "black",
+          width: "100%",
+        }}
         type="text"
-        onChange={(event) => setnum(event.target.value)}
-        value={num}
+        onChange={handleChange}
+        value={char}
       />
       <Handle
         type="source"

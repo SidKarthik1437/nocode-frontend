@@ -5,7 +5,7 @@ export const dataStore = atom({
   default: [],
 });
 
-export const CurrentFileStore = atom({
-  key: "currentFileStore",
-  default: {},
-});
+// export const CurrentFileStore = atom({
+//   key: "currentFileStore",
+//   default: {},
+// });

@@ -1,23 +1,38 @@
 import React, { memo, useState } from "react";
 
 import { Handle } from "reactflow";
+import { useRecoilState } from "recoil";
+import { dataStore } from "../atoms/dataAtom";
 
 export default memo(({ data, isConnectable }) => {
-  const [string, setstring] = useState("");
+  const [num, setnum] = useState(0);
+  // const [iData, setiData] = useGlobalState("data");
+  const [iData, setiData] = useRecoilState(dataStore);
+
+  // let d = {};
+  // d[data.id] = num;
+  // console.log(d);
+  // console.log(data.id)
 
   const handleChange = (event) => {
     event.preventDefault();
-    setstring(event.target.value);
+    setnum(event.target.value);
     data.value = event.target.value;
     data.type = "value";
   };
+
+  // const setVal = (event) => {
+  //   event.preventDefault();
+
+  //   setiData((state) => ({
+  //     ...state,
+  //     [data.label]: num,
+  //   }));
+  //   console.log("idata", iData);
+  // };
+
   return (
-    <div
-      className="bg-blue-500 p-2 w-20 h-20 rounded text-white tracking-wider"
-      style={{
-        width: "100px",
-      }}
-    >
+    <div className="bg-blue-500 p-2 w-auto h-auto rounded text-white tracking-wider">
       <Handle
         type="target"
         position="left"
@@ -34,18 +49,24 @@ export default memo(({ data, isConnectable }) => {
         isConnectable={isConnectable}
       />
       <div className="flex justify-center" style={{ width: "100%" }}>
-        <span>String</span>
+        <span>Int</span>
       </div>
-      <input
-        className="text-black pt-2 rounded text-center"
-        style={{
-          color: "black",
-          width: "100%",
-        }}
-        type="text"
-        onChange={handleChange}
-        value={string}
-      />
+      <div className="flex flex-col">
+        <input
+          className="w-20 px-2 rounded text-center"
+          type="number"
+          value={num}
+          style={{ color: "black" }}
+          onChange={(event) => handleChange(event)}
+        />
+        {/* <button
+          className="bg-black w-20 h-10 text-white mt-2 rounded text-center"
+          type="button"
+          onClick={(event) => setVal(event)}
+        >
+          set
+        </button> */}
+      </div>
       <Handle
         type="source"
         position="right"

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   addEdge,
@@ -9,18 +9,16 @@ import ReactFlow, {
   applyEdgeChanges,
   OnNodesDelete,
   Background,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
+} from "reactflow";
+import "reactflow/dist/style.css";
 import * as NODES from "../nodes";
 
-import Sidebar from '../components/Sidebar';
+import Sidebar from "../components/Sidebar";
 
 let id = 0;
 const getId = (type) => `${type}_${id++}`;
 
-const initialNodes = [
-  
-];
+const initialNodes = [];
 
 const initialEdges = [
   // { id: '1-2', source: '1', target: '2', label: 'to the', type: 'step' }
@@ -31,7 +29,7 @@ const nodeTypes = {
   Stop: NODES.Stop,
   DropDuplicates: NODES.DropDuplicates,
   Add: NODES.Add,
-  Integer: NODES.Integer,
+  Int: NODES.Int,
   File: NODES.File,
   FileRef: NODES.FileRef,
   Output: NODES.Output,
@@ -41,7 +39,7 @@ const nodeTypes = {
   Div: NODES.Divide,
   Float: NODES.Float,
   Char: NODES.Char,
-  String: NODES.String,
+  Str: NODES.String,
   StandardScaler: NODES.StandardScaler,
   FitTransform: NODES.FitTransform,
   LabelEncoder: NODES.LabelEncoder,
@@ -53,17 +51,19 @@ const nodeTypes = {
 };
 
 function Flow() {
-
   const reactFlowWrapper = useRef(null);
   const [nodes, setNodes] = useNodesState(initialNodes);
   const [edges, setEdges] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
-  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
+  const onConnect = useCallback(
+    (params) => setEdges((eds) => addEdge(params, eds)),
+    []
+  );
 
   const onDragOver = useCallback((event) => {
     event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
+    event.dataTransfer.dropEffect = "move";
   }, []);
 
   const onDrop = useCallback(
@@ -71,10 +71,10 @@ function Flow() {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const type = event.dataTransfer.getData('application/reactflow');
+      const type = event.dataTransfer.getData("application/reactflow");
 
       // check if the dropped element is valid
-      if (typeof type === 'undefined' || !type) {
+      if (typeof type === "undefined" || !type) {
         return;
       }
 
@@ -83,14 +83,14 @@ function Flow() {
         y: event.clientY - reactFlowBounds.top,
       });
       const newNode = {
-        id: getId(type),
         type,
         position,
-        data: { label: `${type}_${id}`},
+        data: { label: `${type}_${id}` },
+        id: getId(type),
       };
 
       setNodes((nds) => nds.concat(newNode));
-      console.log(nodes)
+      console.log(nodes);
     },
     [reactFlowInstance]
   );
@@ -107,9 +107,9 @@ function Flow() {
   // console.log(nodes)
   // console.log(edges)
   return (
-    <div className='w-full h-screen flex select-none'>
+    <div className="w-full h-screen flex select-none">
       <ReactFlowProvider>
-      <Sidebar />
+        <Sidebar />
         <div className="w-full h-screen" ref={reactFlowWrapper}>
           <ReactFlow
             nodes={nodes}
@@ -121,18 +121,17 @@ function Flow() {
             // snapToGrid={true}
             onInit={setReactFlowInstance}
             onDrop={onDrop}
-            deleteKeyCode={['Delete']}
+            deleteKeyCode={["Delete"]}
             onDragOver={onDragOver}
             // onElementsRemove={onElementsRemove}
             fitView
-            className='w-full h-screen bg-gray-500'
+            className="w-full h-screen bg-gray-500"
             snapGrid={[15, 15]}
           >
             <Controls />
             <Background color="#aaa" gap={10} />
           </ReactFlow>
         </div>
-        
       </ReactFlowProvider>
     </div>
   );

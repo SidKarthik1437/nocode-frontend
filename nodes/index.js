@@ -2,7 +2,7 @@ import DropDuplicates from "../nodes/DropDuplicates";
 import Start from "../nodes/Start";
 import Stop from "../nodes/Stop";
 import Add from "../nodes/Add";
-import Integer from "../nodes/Integer";
+import Int from "../nodes/Int";
 import File from "../nodes/File";
 import Output from "../nodes/Output";
 import IsNull from "../nodes/IsNull";
@@ -27,7 +27,7 @@ export {
   Stop,
   DropDuplicates,
   Add,
-  Integer,
+  Int,
   File,
   FileRef,
   Output,
