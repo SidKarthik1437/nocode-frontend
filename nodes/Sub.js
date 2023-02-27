@@ -1,11 +1,12 @@
 import React, { memo, useEffect } from "react";
 
-import { Handle } from 'reactflow';
+import { Handle } from "reactflow";
 
 export default memo(({ data, isConnectable }) => {
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    data.type = "sub";
+    console.log(data.type);
+  }, [isConnectable]);
   return (
     <div className="bg-green-500 p-2 w-20 h-20 rounded text-white tracking-wider">
       <Handle

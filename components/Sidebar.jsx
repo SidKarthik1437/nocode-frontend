@@ -51,7 +51,7 @@ export default () => {
 
   return (
     <aside className="flex flex-col w-auto justify-between h-screen">
-      <div className="sidebar flex flex-col overflow-y-scroll px-4 border-r-2 py-4">
+      <div className="sidebar flex flex-col overflow-y-scroll px-4 border-r-2 py-4 ">
         <div className="mb-2 h-auto">
           <span className="font-semibold uppercase tracking-widest">Basic</span>
           <div
@@ -128,7 +128,7 @@ export default () => {
             File
           </div>
         </div>
-        <div className="mb-2 h-auto">
+        {/* <div className="mb-2 h-auto">
           <span className="font-semibold uppercase tracking-widest">
             Data Cleaning
           </span>
@@ -168,7 +168,7 @@ export default () => {
           >
             Label Encoder
           </div>
-        </div>
+        </div> */}
 
         <div className="mb-2 h-auto">
           <span className="font-semibold uppercase tracking-widest">
